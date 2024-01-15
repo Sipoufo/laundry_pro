@@ -2,17 +2,17 @@ import React, { useEffect, useState } from "react";
 import SmallButtonWidget from "../../widgets/SmallButtonWidget";
 import PaginationWidget from "../../widgets/PaginationWidget";
 import LoadingComponent from "../../components/loadingComponent";
-import ProductModal from "./ProductModal";
-import CustomerModalUpdate from "./ProductModalUpdate";
+import { DeleteCustomer, FetchCustomers } from "../../services/customerService";
+import CustomerModal from "./CustomerModal";
+import CustomerModalUpdate from "./CustomerModalUpdate";
 import AlertMessageComponent from "../../components/alertMessageComponent";
-import { DeleteProduct, FetchProducts } from "../../services/productService";
 
-const Products = () => {
-    const [products, setProducts] = useState([]);
+const Customers = () => {
+    const [customers, setCustomers] = useState([]);
     const [loading, setLoading] = useState(true);
     const [active, setActive] = useState(false);
     const [updateActive, setUpdateActive] = useState(false);
-    const [actualProduct, setActualProduct] = useState();
+    const [actualCustomer, setActualCustomer] = useState();
     const [result, setResult] = useState({});
     const [isError, setIsError] = useState(false);
     const [activeMessageBox, setActiveMessageBox] = useState(false);
@@ -20,7 +20,7 @@ const Products = () => {
     const onDelete = async () => {
         setLoading(true);
 
-        const res = await DeleteProduct(actualProduct);
+        const res = await DeleteCustomer(actualCustomer);
         setActiveMessageBox(true);
         setResult(res);
         setIsError(res.isError);
@@ -28,11 +28,11 @@ const Products = () => {
     }
 
     const fetch = async () => {
-        const data = await FetchProducts(1, 20);
+        const data = await FetchCustomers(1, 20);
         console.log(data);
         console.log(data.data["data"]);
         if (data.data["data"]) {
-            setProducts(data.data["data"]);
+            setCustomers(data.data["data"]);
         }
     };
 
@@ -72,25 +72,25 @@ const Products = () => {
                                 Num
                             </th>
                             <th scope="col" className="px-6 py-3 w-2/12">
-                                Name
+                                First name
                             </th>
                             <th scope="col" className="px-6 py-3 w-2/12">
-                                Normal Ironing
+                                Last name
                             </th>
                             <th scope="col" className="px-6 py-3 w-1/12">
-                                Fast Ironing
+                                Phone
                             </th>
                             <th scope="col" className="px-6 py-3 w-1/12">
-                                Normal Detergent
+                                Address
                             </th>
                             <th scope="col" className="px-6 py-3 w-1/12">
-                                Fast Detergent
+                                Transaction
                             </th>
                             <th scope="col" className="px-6 py-3 w-1/12">
-                                Normal GloriousPressing
+                                Paid
                             </th>
                             <th scope="col" className="px-6 py-3 w-1/12">
-                                Fast GloriousPressing
+                                Remise
                             </th>
                             <th scope="col" className="px-6 py-3 w-2/12">
                                 Action
@@ -99,42 +99,42 @@ const Products = () => {
                     </thead>
                     <tbody>
                         {
-                            products.map(product => {
+                            customers.map(customer => {
                                 return (
-                                    <tr key={product["customerId"]} className="bg-white border-b hover:bg-gray-50">
+                                    <tr key={customer["customerId"]} className="bg-white border-b hover:bg-gray-50">
                                         <th
                                             scope="row"
                                             className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap w-2/12"
                                         >
-                                            PR{product["productId"]}
+                                            {customer["customerId"]}
                                         </th>
                                         <td className="px-6 py-4 whitespace-nowrap w-2/12">
-                                            {product["name"]}
+                                            {customer["firstName"]}
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap w-2/12">
-                                            {product["normalIroning"]}
+                                            {customer["lastName"]}
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap w-1/12">
-                                            {product["fastIroning"]}
+                                            {customer["phone"]}
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap w-1/12">
-                                            {product["normalDetergent"]}
+                                            {customer["address"]}
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap w-1/12">
-                                            {product["fastDetergent"]}
+                                            0
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap w-1/12">
-                                            {product["normalGloriousPressing"]}
+                                            0
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap w-1/12">
-                                            {product["fastGloriousPressing"]}
+                                            0
                                         </td>
                                         <td className="flex items-center px-6 py-4 whitespace-nowrap w-2/12 gap-4">
                                             <SmallButtonWidget
                                                 name={"Update"}
                                                 color={"bg-cyan-600"}
                                                 click={() => {
-                                                    setActualProduct(product["customerId"])
+                                                    setActualCustomer(customer["customerId"])
                                                     setUpdateActive(true)
                                                 }}
                                             />
@@ -142,7 +142,7 @@ const Products = () => {
                                                 name={"Delete"}
                                                 color={"bg-red-400"}
                                                 click={() => {
-                                                    setActualProduct(product["customerId"])
+                                                    setActualCustomer(customer["customerId"])
                                                     onDelete()
                                                 }}
                                             />
@@ -155,8 +155,8 @@ const Products = () => {
                 </table>
                 <PaginationWidget />
             </div>
-            <ProductModal active={active} setActive={setActive} />
-            <CustomerModalUpdate active={updateActive} setActive={setUpdateActive} customerId={actualProduct} />
+            <CustomerModal active={active} setActive={setActive} />
+            <CustomerModalUpdate active={updateActive} setActive={setUpdateActive} customerId={actualCustomer} />
             <AlertMessageComponent
                 isActive={activeMessageBox}
                 title={isError ? "Error" : "Success"}
@@ -168,4 +168,4 @@ const Products = () => {
     );
 };
 
-export default Products;
+export default Customers;

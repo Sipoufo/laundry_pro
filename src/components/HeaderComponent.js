@@ -30,18 +30,16 @@ const HeaderComponent = () => {
             </div>
 
             {/* Language form */}
-            <form className="flex flex-row items-center gap-2">
-                {/* French */}
+            {/* <form className="flex flex-row items-center gap-2">
                 <div className="flex flex-row gap-1 items-center">
                     <input type="radio" name="language" />
                     <label>Fr</label>
                 </div>
-                {/* English */}
                 <div className="flex flex-row gap-1 items-center">
                     <input type="radio" name="language" />
                     <label>En</label>
                 </div>
-            </form>
+            </form> */}
 
             {/* User Setting */}
             <button className="flex flex-row gap-4 items-center">
