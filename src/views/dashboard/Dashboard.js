@@ -1,6 +1,6 @@
 import React from "react";
-import { GrMoney } from "react-icons/gr";
-import { IoTicketOutline } from "react-icons/io5";
+// import { GrMoney } from "react-icons/gr";
+// import { IoTicketOutline } from "react-icons/io5";
 import { PiMoneyThin, PiTicketThin, PiUsersThin } from "react-icons/pi";
 
 const Dashboard = () => {

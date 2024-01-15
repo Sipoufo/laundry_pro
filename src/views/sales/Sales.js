@@ -1,6 +1,6 @@
 import React from "react";
 import SmallButtonWidget from "../../widgets/SmallButtonWidget";
-import { MdDelete } from "react-icons/md";
+// import { MdDelete } from "react-icons/md";
 import PaginationWidget from "../../widgets/PaginationWidget";
 
 const Sales = () => {

@@ -14,7 +14,7 @@ const Index = () => {
                 <div className="flex flex-row flex-grow overflow-hidden gap-6">
                     {/* Menu part */}
                     <NavBarComponent />
-                    <div className="flex p-4 w-full">
+                    <div className="flex p-4 w-full overflow-hidden">
                         {/* Container */}
                         <Outlet />
                     </div>
